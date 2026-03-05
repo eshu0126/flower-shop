@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Mix & Match Bouquet | Florabella</title>
+  <meta name="description" content="Create your own bouquet by mixing flower stems and selecting wrap and size options.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="custom">
+  <div class="topbar">Build your own bouquet | Mix and match individual stems</div>
+
+  <header class="site-header">
+    <div class="container header-main">
+      <a class="brand" href="index.html"><span class="brand-title">FLORABELLA</span><span class="brand-sub">Flowers</span></a>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="all-flowers.html" data-nav="allflowers">All Flowers</a>
+        <a href="rose-collections.html" data-nav="roses">Roses</a>
+        <a href="peony-collection.html" data-nav="peonies">Peonies</a>
+        <a href="tulip-collection.html" data-nav="tulips">Tulips</a>
+        <a href="lily-collection.html" data-nav="lilies">Lilies</a>
+        <a href="orchid-collection.html" data-nav="orchids">Orchids</a>
+        <a href="seasonal-blooms.html" data-nav="seasonal">Seasonal</a>
+        <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
+        <a href="about.html" data-nav="about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
+        <a class="cart-link" href="cart.html">Cart <span class="cart-badge" data-cart-count>0</span></a>
+        <a class="btn btn-primary btn-sm" href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero" style="--hero-img:url('https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=1800&h=900&fit=crop');">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> / Custom Bouquet</p>
+        <span class="kicker">Mix & Match</span>
+        <h1>Create Your Custom Bouquet</h1>
+        <p>Choose stems, size, wrap style, and vase options. Pricing updates automatically.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container builder-layout">
+        <form id="customBuilderForm" class="form-card reveal">
+          <span class="kicker">Bouquet setup</span>
+          <h2 style="font-family: var(--font-head); margin-top:0;">Design Details</h2>
+
+          <div style="margin-top: 0.8rem;">
+            <label for="customName">Bouquet Name</label>
+            <input id="customName" type="text" placeholder="My Birthday Bouquet">
+          </div>
+
+          <div class="form-row" style="margin-top: 0.8rem;">
+            <div>
+              <label for="customSize">Size</label>
+              <select id="customSize">
+                <option value="1">Classic</option>
+                <option value="1.2">Grand (+20%)</option>
+                <option value="1.45">Signature (+45%)</option>
+              </select>
+            </div>
+            <div>
+              <label for="customWrap">Wrap Style</label>
+              <select id="customWrap">
+                <option>Ivory Wrap</option>
+                <option>Dusty Rose Wrap</option>
+                <option>Sage Wrap</option>
+                <option>No Wrap (Vase Focus)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.8rem;">
+            <label class="checkbox-inline" style="color: var(--ink);"><input id="customVase" type="checkbox"> Include glass vase (+$22)</label>
+          </div>
+
+          <hr style="border:0; border-top:1px solid var(--line); margin:1rem 0;">
+          <h3 style="font-family: var(--font-head); margin:0 0 0.7rem;">Select Stems</h3>
+          <div id="customStemList" class="stem-grid"></div>
+
+          <div style="margin-top: 1rem;"><button type="submit" class="btn btn-primary btn-block">Add Custom Bouquet to Cart</button></div>
+          <p id="customBuilderMessage" class="form-message"></p>
+        </form>
+
+        <aside class="bouquet-summary reveal">
+          <span class="kicker">Live summary</span>
+          <h3 style="font-family: var(--font-head); margin-top:0;">Custom Bouquet Total</h3>
+          <p id="customStemCount" class="item-meta">0 stems selected</p>
+          <p style="font-size:2rem; margin:0.6rem 0; font-family: var(--font-head); color: var(--accent);" id="customBouquetTotal">$0.00</p>
+          <p class="item-meta">Total includes your selected stems, bouquet size multiplier, design service fee, and optional vase.</p>
+          <div style="margin-top:1rem;"><a href="cart.html" class="btn btn-ghost btn-block">Go to Cart</a></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><h3>Florabella Flowers</h3><p>Premium flower-only collections with custom bouquet options.</p></div>
+      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="peony-collection.html">Peonies</a><a href="seasonal-blooms.html">Seasonal</a></div>
+      <div class="footer-col"><h4>Order</h4><a href="custom-bouquet.html">Build Custom Bouquet</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="about.html#contact">Contact</a><a href="catalog-manager.html">Catalog Manager</a></div>
+    </div>
+    <div class="container footer-bottom"><p>© <span data-year></span> Florabella Flowers. All rights reserved.</p></div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="flowers-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

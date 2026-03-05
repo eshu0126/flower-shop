@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Florabella</title>
+  <meta name="description" content="Secure checkout with Stripe support and birthday email subscription options.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="checkout">
+  <div class="topbar">Secure checkout | Stripe-ready payment + birthday email preferences</div>
+
+  <header class="site-header">
+    <div class="container header-main">
+      <a class="brand" href="index.html"><span class="brand-title">FLORABELLA</span><span class="brand-sub">Flowers</span></a>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="all-flowers.html" data-nav="allflowers">All Flowers</a>
+        <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
+        <a href="about.html" data-nav="about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
+        <a class="cart-link" href="cart.html">Cart <span class="cart-badge" data-cart-count>0</span></a>
+        <a class="btn btn-primary btn-sm" href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero" style="--hero-img:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=1800&h=900&fit=crop');">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> / Checkout</p>
+        <span class="kicker">Secure payment</span>
+        <h1>Checkout</h1>
+        <p>Complete your flower order and optionally subscribe to birthday reminders and seasonal updates.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container checkout-layout">
+        <form id="checkoutForm" class="form-card reveal">
+          <span class="kicker">Delivery details</span>
+          <h2 style="font-family: var(--font-head); margin-top:0;">Shipping Information</h2>
+
+          <div class="form-row" style="margin-top:0.8rem;">
+            <div><label for="firstName">First Name</label><input id="firstName" type="text" required></div>
+            <div><label for="lastName">Last Name</label><input id="lastName" type="text" required></div>
+          </div>
+          <div style="margin-top:0.8rem;"><label for="email">Email</label><input id="email" type="email" required></div>
+          <div style="margin-top:0.8rem;"><label for="phone">Phone</label><input id="phone" type="tel" required></div>
+          <div style="margin-top:0.8rem;"><label for="address">Address</label><input id="address" type="text" required></div>
+          <div class="form-row" style="margin-top:0.8rem;">
+            <div><label for="city">City</label><input id="city" type="text" required></div>
+            <div><label for="zip">ZIP Code</label><input id="zip" type="text" required></div>
+          </div>
+          <div style="margin-top:0.8rem;"><label for="deliveryDate">Delivery Date</label><input id="deliveryDate" type="date" required></div>
+          <div style="margin-top:0.8rem;"><label for="notes">Gift Message</label><textarea id="notes" placeholder="Optional card message"></textarea></div>
+
+          <hr style="border:0; border-top:1px solid var(--line); margin:1rem 0;">
+
+          <span class="kicker">Payment method</span>
+          <div class="payment-methods">
+            <label><input type="radio" name="payment_method" value="stripe" checked> Pay with Stripe</label>
+            <label><input type="radio" name="payment_method" value="manual"> Manual demo payment</label>
+          </div>
+          <p id="stripeSetupHint" class="inline-note"></p>
+
+          <div id="manualCardFields" style="margin-top:0.8rem;">
+            <div class="form-row">
+              <div><label for="cardName">Cardholder Name</label><input id="cardName" type="text"></div>
+              <div><label for="cardNumber">Card Number</label><input id="cardNumber" type="text" inputmode="numeric"></div>
+            </div>
+            <div class="form-row" style="margin-top:0.8rem;">
+              <div><label for="expiry">Expiry (MM/YY)</label><input id="expiry" type="text"></div>
+              <div><label for="cvv">CVV</label><input id="cvv" type="password" inputmode="numeric"></div>
+            </div>
+          </div>
+
+          <hr style="border:0; border-top:1px solid var(--line); margin:1rem 0;">
+
+          <span class="kicker">Email preferences</span>
+          <div style="margin-top:0.5rem;"><label for="checkoutBirthday">Birthday</label><input id="checkoutBirthday" type="date"></div>
+          <div style="margin-top:0.5rem;">
+            <label class="checkbox-inline" style="color:var(--ink);"><input id="checkoutBirthdayOptIn" type="checkbox" checked> Send birthday flower reminders and offers</label>
+          </div>
+          <div style="margin-top:0.3rem;">
+            <label class="checkbox-inline" style="color:var(--ink);"><input id="checkoutSeasonalOptIn" type="checkbox" checked> Send seasonal flower updates</label>
+          </div>
+
+          <div style="margin-top: 1rem;"><button type="submit" class="btn btn-primary btn-block">Place Order</button></div>
+          <p id="checkoutMessage" class="form-message"></p>
+        </form>
+
+        <aside class="summary-card reveal">
+          <h2 style="font-family: var(--font-head); margin-top:0;">Order Summary</h2>
+          <div id="checkoutItems" class="checkout-items"></div>
+          <p id="checkoutEmptyState" class="empty-note" hidden>Your cart is empty. Add flowers before checkout.</p>
+          <div style="margin-top:0.8rem;" class="summary-row"><span>Subtotal</span><strong id="checkoutSubtotal">$0.00</strong></div>
+          <div class="summary-row"><span>Delivery</span><strong>$14.00</strong></div>
+          <div class="summary-row total"><span>Total</span><strong id="checkoutTotal">$14.00</strong></div>
+          <div style="margin-top:1rem;"><a href="cart.html" class="btn btn-ghost btn-block">Back to Cart</a></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><h3>Florabella Flowers</h3><p>Premium flower-only collections with custom bouquet options.</p></div>
+      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="peony-collection.html">Peonies</a><a href="seasonal-blooms.html">Seasonal</a></div>
+      <div class="footer-col"><h4>Order</h4><a href="custom-bouquet.html">Build Custom Bouquet</a><a href="cart.html">Cart</a><a href="login.html">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="about.html#contact">Contact</a><a href="catalog-manager.html">Catalog Manager</a></div>
+    </div>
+    <div class="container footer-bottom"><p>© <span data-year></span> Florabella Flowers. All rights reserved.</p></div>
+  </footer>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="config.js"></script>
+  <script src="flowers-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

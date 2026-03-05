@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seasonal Blooms | Florabella</title>
+  <meta name="description" content="Fresh seasonal flowers curated by our design studio each week.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="seasonal">
+  <div class="topbar">Flower-first collections | Premium quality and same-day delivery</div>
+
+  <header class="site-header">
+    <div class="container header-main">
+      <a class="brand" href="index.html"><span class="brand-title">FLORABELLA</span><span class="brand-sub">Flowers</span></a>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="all-flowers.html" data-nav="allflowers">All Flowers</a>
+        <a href="rose-collections.html" data-nav="roses">Roses</a>
+        <a href="peony-collection.html" data-nav="peonies">Peonies</a>
+        <a href="tulip-collection.html" data-nav="tulips">Tulips</a>
+        <a href="lily-collection.html" data-nav="lilies">Lilies</a>
+        <a href="orchid-collection.html" data-nav="orchids">Orchids</a>
+        <a href="seasonal-blooms.html" data-nav="seasonal">Seasonal</a>
+        <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
+        <a href="about.html" data-nav="about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
+        <a class="cart-link" href="cart.html">Cart <span class="cart-badge" data-cart-count>0</span></a>
+        <a class="btn btn-primary btn-sm" href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero" style="--hero-img:url('https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=1800&h=900&fit=crop');">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> / Seasonal Blooms</p>
+        <span class="kicker">Seasonal Blooms</span>
+        <h1>Seasonal Blooms</h1>
+        <p>Fresh seasonal flowers curated by our design studio each week.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Shop Seasonal Blooms</h2>
+          <a href="custom-bouquet.html" class="btn btn-ghost btn-sm">Build Custom Mix</a>
+        </div>
+        <div class="product-grid" data-product-grid data-category="seasonal"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><h3>Florabella Flowers</h3><p>Premium flower-only collections with custom bouquet options.</p></div>
+      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="peony-collection.html">Peonies</a><a href="seasonal-blooms.html">Seasonal</a></div>
+      <div class="footer-col"><h4>Order</h4><a href="custom-bouquet.html">Build Custom Bouquet</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="about.html#contact">Contact</a><a href="catalog-manager.html">Catalog Manager</a></div>
+    </div>
+    <div class="container footer-bottom"><p>© <span data-year></span> Florabella Flowers. All rights reserved.</p></div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="flowers-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

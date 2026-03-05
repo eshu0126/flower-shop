@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed | Florabella</title>
+  <meta name="description" content="Your flower order has been placed successfully.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="confirmation">
+  <div class="topbar">Order confirmed | Our floral team is preparing your arrangement</div>
+
+  <header class="site-header">
+    <div class="container header-main">
+      <a class="brand" href="index.html"><span class="brand-title">FLORABELLA</span><span class="brand-sub">Flowers</span></a>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="all-flowers.html" data-nav="allflowers">All Flowers</a>
+        <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
+        <a href="about.html" data-nav="about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
+        <a class="cart-link" href="cart.html">Cart <span class="cart-badge" data-cart-count>0</span></a>
+        <a class="btn btn-primary btn-sm" href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container" style="max-width:760px;">
+        <article class="form-card reveal" style="text-align:center; padding:2rem;">
+          <span class="kicker">Order confirmed</span>
+          <h1 style="font-family: var(--font-head); margin-top:0.35rem;">Thank You for Your Order</h1>
+          <p>Your flowers are now being prepared by our design team.</p>
+          <p style="font-weight:700; margin:0.8rem 0 0;">Order ID: <span id="orderId">Pending</span></p>
+          <div style="display:flex; gap:0.7rem; justify-content:center; flex-wrap:wrap; margin-top:1.2rem;">
+            <a href="index.html" class="btn btn-primary">Back to Home</a>
+            <a href="all-flowers.html" class="btn btn-ghost">Continue Shopping</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><h3>Florabella Flowers</h3><p>Premium flower-only collections with custom bouquet options.</p></div>
+      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="peony-collection.html">Peonies</a></div>
+      <div class="footer-col"><h4>Order</h4><a href="custom-bouquet.html">Mix & Match</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="about.html#contact">Contact</a><a href="catalog-manager.html">Catalog Manager</a></div>
+    </div>
+    <div class="container footer-bottom"><p>© <span data-year></span> Florabella Flowers. All rights reserved.</p></div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="flowers-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

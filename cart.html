@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | Florabella</title>
+  <meta name="description" content="Review flower selections and custom bouquets before checkout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="cart">
+  <div class="topbar">Your flower cart | Update quantities and proceed to checkout</div>
+
+  <header class="site-header">
+    <div class="container header-main">
+      <a class="brand" href="index.html"><span class="brand-title">FLORABELLA</span><span class="brand-sub">Flowers</span></a>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="all-flowers.html" data-nav="allflowers">All Flowers</a>
+        <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
+        <a href="about.html" data-nav="about">About</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
+        <a class="cart-link" href="cart.html">Cart <span class="cart-badge" data-cart-count>0</span></a>
+        <a class="btn btn-primary btn-sm" href="checkout.html">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero" style="--hero-img:url('https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=1800&h=900&fit=crop');">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> / Cart</p>
+        <span class="kicker">Your order</span>
+        <h1>Shopping Cart</h1>
+        <p>Review all flowers and custom mix-match bouquets before secure checkout.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container cart-layout">
+        <div>
+          <div id="cartItems" class="cart-items"></div>
+          <div id="cartEmptyState" class="empty-note" hidden>
+            Your cart is empty. Add flowers from category pages or build a custom bouquet.
+            <div style="margin-top:0.8rem;"><a class="btn btn-ghost btn-sm" href="all-flowers.html">Shop All Flowers</a></div>
+          </div>
+        </div>
+
+        <aside class="summary-card">
+          <h2 style="font-family: var(--font-head); margin-top:0;">Order Summary</h2>
+          <div class="summary-row"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+          <div class="summary-row"><span>Delivery</span><strong>$14.00</strong></div>
+          <div class="summary-row total"><span>Total</span><strong id="cartTotal">$14.00</strong></div>
+          <div style="margin-top:1rem;"><a id="cartCheckoutBtn" href="checkout.html" class="btn btn-primary btn-block">Proceed to Checkout</a></div>
+          <div style="margin-top:0.6rem;"><button id="clearCartBtn" type="button" class="btn btn-ghost btn-block">Clear Cart</button></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><h3>Florabella Flowers</h3><p>Premium flower-only collections with custom bouquet options.</p></div>
+      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="peony-collection.html">Peonies</a><a href="seasonal-blooms.html">Seasonal</a></div>
+      <div class="footer-col"><h4>Order</h4><a href="custom-bouquet.html">Build Custom Bouquet</a><a href="checkout.html">Checkout</a><a href="login.html">Login</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="about.html#contact">Contact</a><a href="catalog-manager.html">Catalog Manager</a></div>
+    </div>
+    <div class="container footer-bottom"><p>© <span data-year></span> Florabella Flowers. All rights reserved.</p></div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="flowers-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
