@@ -3,148 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Florabella Flowers | Premium Flower Delivery</title>
-  <meta name="description" content="Shop all flower categories, build custom bouquets, and order premium flowers with secure checkout.">
+  <title>Florabella Boston | Register to Start Shopping</title>
+  <meta name="description" content="Register or login with subscription enabled to start shopping flowers at Florabella Boston.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="home">
-  <div class="topbar">Same-day delivery available in Boston | Luxury flowers for every occasion</div>
+  <div class="topbar">Register or Login with subscription to unlock cart and checkout</div>
 
   <header class="site-header">
     <div class="container header-main">
       <a class="brand" href="index.html">
         <span class="brand-title">FLORABELLA</span>
-        <span class="brand-sub">Flowers</span>
+        <span class="brand-sub">Boston</span>
       </a>
 
       <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
 
       <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
         <a href="index.html" data-nav="home">Home</a>
-        <a href="all-flowers.html" data-nav="allflowers">All Flowers</a>
-        <a href="rose-collections.html" data-nav="roses">Roses</a>
-        <a href="peony-collection.html" data-nav="peonies">Peonies</a>
-        <a href="tulip-collection.html" data-nav="tulips">Tulips</a>
-        <a href="lily-collection.html" data-nav="lilies">Lilies</a>
-        <a href="orchid-collection.html" data-nav="orchids">Orchids</a>
-        <a href="seasonal-blooms.html" data-nav="seasonal">Seasonal</a>
-        <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
-        <a href="about.html" data-nav="about">About</a>
+        <a href="#registerSubscribe">Subscribe & Register</a>
+        <a href="#aboutSection">About</a>
       </nav>
 
       <div class="header-actions">
-        <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
+        <a class="btn btn-ghost btn-sm" href="#loginCard">Login</a>
         <a class="cart-link" href="cart.html">Cart <span class="cart-badge" data-cart-count>0</span></a>
-        <a class="btn btn-primary btn-sm" href="checkout.html">Checkout</a>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <span class="kicker">All-flower website upgrade</span>
-        <h1>Every Flower Category, One Seamless Shopping Experience</h1>
-        <p>Browse roses, peonies, tulips, lilies, orchids, and seasonal edits. Build your own bouquet with mix-and-match stems and secure checkout.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="all-flowers.html">Shop All Flowers</a>
-          <a class="btn btn-ghost" href="custom-bouquet.html">Build Custom Bouquet</a>
+    <section class="hero hero-carousel" id="homeHeroCarousel">
+      <div class="hero-stage">
+        <div class="hero-slide-item active" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=1800&h=1000&fit=crop');"></div>
+        <div class="hero-slide-item" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=1800&h=1000&fit=crop');"></div>
+        <div class="hero-slide-item" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=1800&h=1000&fit=crop');"></div>
+      </div>
+
+      <div class="hero-overlay">
+        <div class="container">
+          <span class="kicker hero-kicker">Florabella Boston</span>
+          <h1>Luxury Flowers With Birthday Reminder Membership</h1>
+          <p>Create your account with subscription enabled. Add your DOB and spouse/partner details so we can send reminders before birthdays.</p>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="kicker">Flower categories</span>
-            <h2>Choose by Flower Type</h2>
-          </div>
-          <p>Dedicated pages for each flower category.</p>
-        </div>
-
-        <div class="card-grid">
-          <a class="category-card reveal" href="rose-collections.html">
-            <img src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=900&h=900&fit=crop" alt="Roses">
-            <div class="inner"><h3>Roses</h3><p>Classic and garden-style rose arrangements.</p></div>
-          </a>
-          <a class="category-card reveal" href="peony-collection.html">
-            <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=900&h=900&fit=crop" alt="Peonies">
-            <div class="inner"><h3>Peonies</h3><p>Lush peonies in romantic and modern styling.</p></div>
-          </a>
-          <a class="category-card reveal" href="tulip-collection.html">
-            <img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=900&h=900&fit=crop" alt="Tulips">
-            <div class="inner"><h3>Tulips</h3><p>Fresh tulip collections with modern compositions.</p></div>
-          </a>
-          <a class="category-card reveal" href="lily-collection.html">
-            <img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=900&h=900&fit=crop" alt="Lilies">
-            <div class="inner"><h3>Lilies</h3><p>Elegant lily collections for refined gifting.</p></div>
-          </a>
-          <a class="category-card reveal" href="orchid-collection.html">
-            <img src="https://images.unsplash.com/photo-1518882104783-f00ef498230c?w=900&h=900&fit=crop" alt="Orchids">
-            <div class="inner"><h3>Orchids</h3><p>Premium orchid-focused floral arrangements.</p></div>
-          </a>
-          <a class="category-card reveal" href="seasonal-blooms.html">
-            <img src="https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=900&fit=crop" alt="Seasonal Flowers">
-            <div class="inner"><h3>Seasonal Blooms</h3><p>Designer weekly seasonal flower edits.</p></div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
+    <section class="section" id="registerSubscribe">
       <div class="container">
         <div class="section-head">
           <div>
-            <span class="kicker">Featured flowers</span>
-            <h2>Best Sellers</h2>
+            <span class="kicker">Start Here</span>
+            <h2>Subscribe & Register or Login</h2>
           </div>
-          <a href="all-flowers.html" class="btn btn-ghost btn-sm">View All</a>
         </div>
-        <div id="featuredFlowersGrid" class="product-grid"></div>
+
+        <p id="homeAuthNotice" class="form-message" hidden></p>
+
+        <div class="about-grid auth-home-grid">
+          <form id="registerForm" class="form-card reveal">
+            <span class="kicker">New Member</span>
+            <h3 style="font-family: var(--font-head); margin-top:0;">Subscribe and Register</h3>
+
+            <div class="form-row" style="margin-top:0.8rem;">
+              <div>
+                <label for="firstName">First Name</label>
+                <input id="firstName" name="first_name" type="text" required>
+              </div>
+              <div>
+                <label for="lastName">Last Name</label>
+                <input id="lastName" name="last_name" type="text" required>
+              </div>
+            </div>
+
+            <div style="margin-top:0.8rem;">
+              <label for="regEmail">Email</label>
+              <input id="regEmail" name="email" type="email" required>
+            </div>
+
+            <div style="margin-top:0.8rem;">
+              <label for="regPassword">Password</label>
+              <input id="regPassword" name="password" type="password" required>
+            </div>
+
+            <div style="margin-top:0.8rem;">
+              <label for="regDob">Your Date of Birth</label>
+              <input id="regDob" name="dob" type="date" required>
+            </div>
+
+            <div class="form-row" style="margin-top:0.8rem;">
+              <div>
+                <label for="spouseName">Husband/Wife Name</label>
+                <input id="spouseName" name="spouse_name" type="text" placeholder="Optional">
+              </div>
+              <div>
+                <label for="spousePhone">Husband/Wife Number</label>
+                <input id="spousePhone" name="spouse_phone" type="tel" placeholder="Optional">
+              </div>
+            </div>
+
+            <div class="form-row" style="margin-top:0.8rem;">
+              <div>
+                <label for="spouseEmail">Husband/Wife Email</label>
+                <input id="spouseEmail" name="spouse_email" type="email" placeholder="Optional">
+              </div>
+              <div>
+                <label for="spouseDob">Husband/Wife DOB</label>
+                <input id="spouseDob" name="spouse_dob" type="date">
+              </div>
+            </div>
+
+            <div style="margin-top:0.9rem;">
+              <label class="checkbox-inline" style="color:var(--ink);">
+                <input type="checkbox" name="register_subscribe" checked>
+                I subscribe to birthday and seasonal flower reminder emails (required)
+              </label>
+            </div>
+
+            <div style="margin-top:1rem;">
+              <button type="submit" class="btn btn-primary btn-block">Subscribe & Register</button>
+            </div>
+            <p id="registerMessage" class="form-message"></p>
+          </form>
+
+          <form id="loginCard" class="form-card reveal" data-login-form>
+            <span class="kicker">Existing Member</span>
+            <h3 style="font-family: var(--font-head); margin-top:0;">Login</h3>
+            <p style="margin-bottom:0.7rem; color:var(--muted);">Already registered and subscribed? Login to continue shopping.</p>
+
+            <div style="margin-top:0.6rem;">
+              <label for="loginEmail">Email</label>
+              <input id="loginEmail" name="email" type="email" required>
+            </div>
+
+            <div style="margin-top:0.8rem;">
+              <label for="loginPassword">Password</label>
+              <input id="loginPassword" name="password" type="password" required>
+            </div>
+
+            <div style="margin-top:1rem;">
+              <button type="submit" class="btn btn-ghost btn-block">Login</button>
+            </div>
+            <p id="homeLoginMessage" class="form-message" data-login-message></p>
+          </form>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container about-grid">
-        <article class="story-card reveal">
-          <span class="kicker">Mix and match</span>
-          <h3>Build Your Own Bouquet</h3>
-          <p>Select individual stems, set bouquet size, choose wrap style, and add a vase. The custom bouquet builder calculates pricing automatically.</p>
-          <div style="margin-top: 1rem;"><a class="btn btn-primary" href="custom-bouquet.html">Open Builder</a></div>
-        </article>
-
-        <article class="story-card reveal">
-          <span class="kicker">Price updates made easy</span>
-          <h3>Edit Flower Catalog Anytime</h3>
-          <p>Use the catalog manager page to add, remove, or change flower prices without touching multiple files.</p>
-          <div style="margin-top: 1rem;"><a class="btn btn-ghost" href="catalog-manager.html">Open Catalog Manager</a></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="newsletter">
-      <div class="container wrap">
-        <div>
-          <span class="kicker" style="color:#dfc6ab;">Email Program</span>
-          <h2 style="font-family: var(--font-head); margin: 0;">Subscribe for Birthday & Seasonal Flower Emails</h2>
-          <p style="margin-top: 0.4rem; color: #e8d9c7;">Choose what you want to receive, including birthday reminders.</p>
-        </div>
-      </div>
+    <section id="aboutSection" class="section" style="padding-top:0;">
       <div class="container">
-        <form data-newsletter-form data-source="homepage" class="newsletter-grid">
-          <input type="email" name="newsletter_email" placeholder="Email address" required>
-          <input type="date" name="newsletter_birthday" aria-label="Birthday date">
-          <button class="btn btn-primary" type="submit">Subscribe</button>
-          <div class="full-row checkbox-grid">
-            <label class="checkbox-inline"><input type="checkbox" name="newsletter_birthday_optin" checked> Birthday reminders and offers</label>
-            <label class="checkbox-inline"><input type="checkbox" name="newsletter_seasonal_optin" checked> Seasonal flower updates</label>
+        <article class="story-card reveal">
+          <span class="kicker">About Florabella</span>
+          <h3>One Membership-Based Floral Experience</h3>
+          <p>Florabella Boston provides premium flowers with a reminder-led subscription model. Once you register and subscribe, you can add flowers to cart and receive birthday reminder emails for yourself and your husband/wife details provided at signup.</p>
+          <div style="margin-top:1rem;">
+            <a class="btn btn-ghost" href="about.html">Read Full About</a>
           </div>
-        </form>
-        <p data-newsletter-message style="margin-top:0.7rem; color:#dfc6ab;"></p>
+        </article>
       </div>
     </section>
   </main>
@@ -152,34 +170,29 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <h3>Florabella Flowers</h3>
-        <p>A flower-first luxury florist with category pages, custom mix-and-match bouquets, and secure checkout.</p>
+        <h3>Florabella Boston</h3>
+        <p>Register-first flower service with subscription reminders and professional delivery.</p>
       </div>
       <div class="footer-col">
-        <h4>Shop Flowers</h4>
-        <a href="all-flowers.html">All Flowers</a>
-        <a href="rose-collections.html">Roses</a>
-        <a href="peony-collection.html">Peonies</a>
-        <a href="tulip-collection.html">Tulips</a>
-        <a href="lily-collection.html">Lilies</a>
-        <a href="orchid-collection.html">Orchids</a>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="custom-bouquet.html">Custom Builder</a>
+        <h4>Account</h4>
+        <a href="#registerSubscribe">Subscribe & Register</a>
+        <a href="#loginCard">Login</a>
         <a href="cart.html">Cart</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="all-flowers.html">All Flowers</a>
+        <a href="custom-bouquet.html">Custom Bouquet</a>
         <a href="checkout.html">Checkout</a>
-        <a href="login.html">Account Login</a>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <a href="about.html">About</a>
         <a href="about.html#contact">Contact</a>
-        <a href="catalog-manager.html">Catalog Manager</a>
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>© <span data-year></span> Florabella Flowers. All rights reserved.</p>
+      <p>© <span data-year></span> Florabella Boston. All rights reserved.</p>
     </div>
   </footer>
 

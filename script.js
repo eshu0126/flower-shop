@@ -2,8 +2,10 @@
 (() => {
   const CART_KEY = 'florabella_cart_v1';
   const USER_KEY = 'florabella_user_v1';
+  const USERS_KEY = 'florabella_users_v1';
   const CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v1';
   const SUBSCRIBERS_KEY = 'florabella_subscribers_v1';
+  const AUTH_NOTICE_KEY = 'florabella_auth_notice_v1';
   const CONFIG = window.FLORABELLA_CONFIG || {};
   const DELIVERY_FEE = Number(CONFIG.deliveryFee || 14);
 
@@ -32,6 +34,63 @@
 
   function writeJSON(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  function getRegisteredUsers() {
+    const users = readJSON(USERS_KEY, []);
+    if (!Array.isArray(users)) return [];
+
+    return users
+      .filter((item) => item && item.email)
+      .map((item) => ({
+        firstName: String(item.firstName || ''),
+        lastName: String(item.lastName || ''),
+        email: String(item.email || '').toLowerCase(),
+        password: String(item.password || ''),
+        dob: String(item.dob || ''),
+        spouseName: String(item.spouseName || ''),
+        spouseEmail: String(item.spouseEmail || '').toLowerCase(),
+        spousePhone: String(item.spousePhone || ''),
+        spouseDob: String(item.spouseDob || ''),
+        subscribed: Boolean(item.subscribed)
+      }));
+  }
+
+  function saveRegisteredUsers(users) {
+    writeJSON(USERS_KEY, users);
+  }
+
+  function getCurrentUser() {
+    return readJSON(USER_KEY, null);
+  }
+
+  function setCurrentUser(user) {
+    writeJSON(USER_KEY, user);
+  }
+
+  function findRegisteredUserByEmail(email) {
+    const normalizedEmail = String(email || '').trim().toLowerCase();
+    if (!normalizedEmail) return null;
+    return getRegisteredUsers().find((item) => item.email === normalizedEmail) || null;
+  }
+
+  function showAuthRequirementNotice() {
+    const message = 'Please register or login and subscribe before adding flowers to cart.';
+    sessionStorage.setItem(AUTH_NOTICE_KEY, message);
+
+    const homeNotice = document.getElementById('homeAuthNotice');
+    if (homeNotice && document.body.dataset.page === 'home') {
+      homeNotice.hidden = false;
+      homeNotice.textContent = message;
+      return;
+    }
+
+    window.location.href = 'index.html#registerSubscribe';
+  }
+
+  function canShop() {
+    const user = getCurrentUser();
+    return Boolean(user && user.subscribed);
   }
 
   function slugify(value) {
@@ -106,6 +165,11 @@
   }
 
   function addToCart(product) {
+    if (!canShop()) {
+      showAuthRequirementNotice();
+      return;
+    }
+
     const normalized = {
       id: String(product.id),
       name: String(product.name),
@@ -574,6 +638,15 @@
       const message = document.getElementById('checkoutMessage');
       const submitButton = checkoutForm.querySelector('button[type="submit"]');
 
+      if (!canShop()) {
+        if (message) {
+          message.textContent = 'Please register/login and subscribe before checkout.';
+          message.style.color = '#9f2d2d';
+        }
+        showAuthRequirementNotice();
+        return;
+      }
+
       const cart = getCart();
       if (!cart.length) {
         if (message) {
@@ -623,35 +696,179 @@
     });
   }
 
-  function bindLoginForm() {
-    const loginForm = document.getElementById('loginForm');
-    if (!loginForm) return;
+  function bindRegistrationForm() {
+    const registerForm = document.getElementById('registerForm');
+    if (!registerForm) return;
 
-    loginForm.addEventListener('submit', (event) => {
+    registerForm.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const emailInput = loginForm.querySelector('input[name="email"]');
-      const passwordInput = loginForm.querySelector('input[name="password"]');
-      const message = document.getElementById('loginMessage');
-      if (!emailInput || !passwordInput) return;
 
-      const email = emailInput.value.trim();
-      const password = passwordInput.value.trim();
+      const message = document.getElementById('registerMessage');
+      const submitButton = registerForm.querySelector('button[type="submit"]');
 
-      if (!email || !password) {
+      const firstName = registerForm.querySelector('input[name="first_name"]')?.value.trim() || '';
+      const lastName = registerForm.querySelector('input[name="last_name"]')?.value.trim() || '';
+      const email = registerForm.querySelector('input[name="email"]')?.value.trim().toLowerCase() || '';
+      const password = registerForm.querySelector('input[name="password"]')?.value.trim() || '';
+      const dob = registerForm.querySelector('input[name="dob"]')?.value || '';
+      const spouseName = registerForm.querySelector('input[name="spouse_name"]')?.value.trim() || '';
+      const spouseEmail = registerForm.querySelector('input[name="spouse_email"]')?.value.trim().toLowerCase() || '';
+      const spousePhone = registerForm.querySelector('input[name="spouse_phone"]')?.value.trim() || '';
+      const spouseDob = registerForm.querySelector('input[name="spouse_dob"]')?.value || '';
+      const subscribeOptIn = Boolean(registerForm.querySelector('input[name="register_subscribe"]')?.checked);
+
+      if (!firstName || !lastName || !email || !password || !dob) {
         if (message) {
-          message.textContent = 'Please enter both email and password.';
+          message.textContent = 'Please complete all required registration fields.';
           message.style.color = '#9f2d2d';
         }
         return;
       }
 
-      localStorage.setItem(USER_KEY, JSON.stringify({ email }));
+      if (!subscribeOptIn) {
+        if (message) {
+          message.textContent = 'Subscription is required before shopping.';
+          message.style.color = '#9f2d2d';
+        }
+        return;
+      }
+
+      if (submitButton) submitButton.disabled = true;
+
+      const users = getRegisteredUsers();
+      const existingIndex = users.findIndex((user) => user.email === email);
+      const nextUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+        dob,
+        spouseName,
+        spouseEmail,
+        spousePhone,
+        spouseDob,
+        subscribed: true
+      };
+
+      if (existingIndex >= 0) {
+        users[existingIndex] = nextUser;
+      } else {
+        users.push(nextUser);
+      }
+      saveRegisteredUsers(users);
+      setCurrentUser(nextUser);
+
+      await saveSubscriber({
+        email,
+        birthday: dob,
+        birthdayOptIn: true,
+        seasonalOptIn: true,
+        source: 'register-home'
+      });
+
+      if (spouseEmail) {
+        await saveSubscriber({
+          email: spouseEmail,
+          birthday: spouseDob,
+          birthdayOptIn: true,
+          seasonalOptIn: true,
+          source: 'register-spouse'
+        });
+      }
+
       if (message) {
-        message.textContent = `Logged in as ${email}. Redirecting to checkout...`;
+        message.textContent = 'Registration complete. Redirecting you to shop now...';
         message.style.color = '#0e6d2d';
       }
-      setTimeout(() => { window.location.href = 'checkout.html'; }, 800);
+
+      setTimeout(() => {
+        window.location.href = 'all-flowers.html';
+      }, 900);
     });
+  }
+
+  function bindLoginForm() {
+    const forms = [];
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) forms.push(loginForm);
+    document.querySelectorAll('[data-login-form]').forEach((form) => {
+      if (!forms.includes(form)) forms.push(form);
+    });
+    if (!forms.length) return;
+
+    forms.forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const emailInput = form.querySelector('input[name="email"]');
+        const passwordInput = form.querySelector('input[name="password"]');
+        const message = form.querySelector('[data-login-message]') || document.getElementById('loginMessage');
+        if (!emailInput || !passwordInput) return;
+
+        const email = emailInput.value.trim().toLowerCase();
+        const password = passwordInput.value.trim();
+
+        if (!email || !password) {
+          if (message) {
+            message.textContent = 'Please enter both email and password.';
+            message.style.color = '#9f2d2d';
+          }
+          return;
+        }
+
+        const user = findRegisteredUserByEmail(email);
+        if (!user || user.password !== password) {
+          if (message) {
+            message.textContent = 'Account not found. Please register first.';
+            message.style.color = '#9f2d2d';
+          }
+          return;
+        }
+
+        if (!user.subscribed) {
+          if (message) {
+            message.textContent = 'Your account must be subscribed before shopping.';
+            message.style.color = '#9f2d2d';
+          }
+          return;
+        }
+
+        setCurrentUser(user);
+        if (message) {
+          message.textContent = `Logged in as ${email}. Redirecting...`;
+          message.style.color = '#0e6d2d';
+        }
+
+        setTimeout(() => {
+          window.location.href = 'all-flowers.html';
+        }, 800);
+      });
+    });
+  }
+
+  function bindHomeHeroSlider() {
+    const slides = [...document.querySelectorAll('[data-hero-slide]')];
+    if (slides.length < 2) return;
+
+    let currentIndex = 0;
+
+    setInterval(() => {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add('active');
+    }, 3000);
+  }
+
+  function showQueuedAuthNotice() {
+    const queued = sessionStorage.getItem(AUTH_NOTICE_KEY);
+    if (!queued) return;
+
+    const notice = document.getElementById('homeAuthNotice');
+    if (notice) {
+      notice.hidden = false;
+      notice.textContent = queued;
+    }
+    sessionStorage.removeItem(AUTH_NOTICE_KEY);
   }
 
   function bindCustomBouquetBuilder() {
@@ -969,9 +1186,12 @@
     setActiveNav();
     bindNavToggle();
     bindAddToCartDelegation();
+    bindHomeHeroSlider();
+    showQueuedAuthNotice();
     renderCatalogSections();
     renderAllFlowersExplorer();
     bindCustomBouquetBuilder();
+    bindRegistrationForm();
 
     bindClearCart();
     bindPaymentMethodSwitch();
