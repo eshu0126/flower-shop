@@ -3,11 +3,13 @@
   const CART_KEY = 'florabella_cart_v1';
   const USER_KEY = 'florabella_user_v1';
   const USERS_KEY = 'florabella_users_v1';
-  const CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v1';
+  const CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v2';
+  const LEGACY_CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v1';
   const SUBSCRIBERS_KEY = 'florabella_subscribers_v1';
   const AUTH_NOTICE_KEY = 'florabella_auth_notice_v1';
   const CONFIG = window.FLORABELLA_CONFIG || {};
   const DELIVERY_FEE = Number(CONFIG.deliveryFee || 14);
+  const DEFAULT_FLOWER_IMAGE = 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop';
 
   const toCurrency = (value) => new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -21,36 +23,45 @@
     .replace(/\"/g, '&quot;')
     .replace(/'/g, '&#39;');
 
-  // Enforce category-specific imagery so products always match their section.
-  const CATEGORY_IMAGE_POOL = {
-    roses: [
-      'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=900&h=1100&fit=crop'
-    ],
-    peonies: [
-      'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1478217655589-37eba75ce489?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1494336956603-39a3f0a94cbb?w=900&h=1100&fit=crop'
-    ],
-    tulips: [
-      'https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=900&h=1100&fit=crop'
-    ],
-    lilies: [
-      'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1525310379110-588677eeed96?w=900&h=1100&fit=crop'
-    ],
-    orchids: [
-      'https://images.unsplash.com/photo-1518882104783-f00ef498230c?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=900&h=1100&fit=crop'
-    ],
-    seasonal: [
-      'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=900&h=1100&fit=crop',
-      'https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=900&h=1100&fit=crop'
-    ]
-  };
+  function buildCategoryImagePool() {
+    const baseCatalog = Array.isArray(window.FLORABELLA_CATALOG) ? window.FLORABELLA_CATALOG : [];
+    const pool = {};
+
+    baseCatalog.forEach((item) => {
+      const category = String(item?.category || 'seasonal').toLowerCase();
+      const image = String(item?.image || '').trim();
+      if (!image) return;
+      if (!Array.isArray(pool[category])) pool[category] = [];
+      if (!pool[category].includes(image)) pool[category].push(image);
+    });
+
+    if (!Array.isArray(pool.seasonal) || !pool.seasonal.length) {
+      pool.seasonal = [DEFAULT_FLOWER_IMAGE];
+    }
+
+    return pool;
+  }
+
+  const CATEGORY_IMAGE_POOL = buildCategoryImagePool();
+
+  function nextCategoryImage(category, usedImages, categoryCursor) {
+    const fallbackPool = CATEGORY_IMAGE_POOL.seasonal || [DEFAULT_FLOWER_IMAGE];
+    const categoryPool = CATEGORY_IMAGE_POOL[category] || fallbackPool;
+    const start = Number(categoryCursor[category] || 0);
+
+    for (let offset = 0; offset < categoryPool.length; offset += 1) {
+      const idx = (start + offset) % categoryPool.length;
+      const candidate = categoryPool[idx];
+      if (!usedImages.has(candidate)) {
+        categoryCursor[category] = idx + 1;
+        return candidate;
+      }
+    }
+
+    const fallback = categoryPool[start % categoryPool.length] || fallbackPool[0] || DEFAULT_FLOWER_IMAGE;
+    categoryCursor[category] = start + 1;
+    return fallback;
+  }
 
   function readJSON(key, fallback) {
     try {
@@ -129,27 +140,49 @@
   }
 
   function normalizeProduct(product, index = 0) {
-    const category = String(product.category || 'seasonal').toLowerCase();
-    const categoryPool = CATEGORY_IMAGE_POOL[category];
-    const categoryImage = Array.isArray(categoryPool) && categoryPool.length
-      ? categoryPool[index % categoryPool.length]
-      : null;
-
     return {
       id: product.id || `flower-${index}`,
-      category,
+      category: String(product.category || 'seasonal').toLowerCase(),
       name: product.name || 'Untitled Flower',
       description: product.description || 'Seasonal florist arrangement.',
       price: Number(product.price || 0),
-      image: categoryImage || product.image || 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop'
+      image: String(product.image || '').trim()
     };
   }
 
+  function sanitizeCatalog(rawCatalog, forceCategoryImages = false) {
+    const categories = getCategories();
+    const usedImages = new Set();
+    const categoryCursor = {};
+
+    return rawCatalog.map((item, index) => {
+      const normalized = normalizeProduct(item, index);
+      const safeCategory = categories[normalized.category] ? normalized.category : 'seasonal';
+      let image = normalized.image;
+
+      if (forceCategoryImages || !image || usedImages.has(image)) {
+        image = nextCategoryImage(safeCategory, usedImages, categoryCursor);
+      }
+
+      if (!image) image = DEFAULT_FLOWER_IMAGE;
+      usedImages.add(image);
+
+      return {
+        ...normalized,
+        category: safeCategory,
+        image
+      };
+    });
+  }
+
   function getCatalog() {
+    localStorage.removeItem(LEGACY_CATALOG_OVERRIDE_KEY);
+
     const override = readJSON(CATALOG_OVERRIDE_KEY, null);
-    if (Array.isArray(override) && override.length > 0) return override.map(normalizeProduct);
+    if (Array.isArray(override) && override.length > 0) return sanitizeCatalog(override, true);
+
     const base = Array.isArray(window.FLORABELLA_CATALOG) ? window.FLORABELLA_CATALOG : [];
-    return base.map(normalizeProduct);
+    return sanitizeCatalog(base, false);
   }
 
   function getCategories() {
