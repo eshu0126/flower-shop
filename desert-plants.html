@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Flowers | Florabella</title>
-  <meta name="description" content="Browse all flowers by category, search and sort, then add directly to cart.">
+  <title>Desert Plant Collection | Florabella</title>
+  <meta name="description" content="Succulents and cactus arrangements for modern interiors.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="allflowers">
-  <div class="topbar">Explore every flower in one place | Real-time category and price controls</div>
+<body data-page="desert-plants">
+  <div class="topbar">Flower-first collections | Premium quality and same-day delivery</div>
 
   <header class="site-header">
     <div class="container header-main">
@@ -25,6 +25,8 @@
         <a href="tulip-collection.html" data-nav="tulips">Tulips</a>
         <a href="lily-collection.html" data-nav="lilies">Lilies</a>
         <a href="orchid-collection.html" data-nav="orchids">Orchids</a>
+        <a href="bouquet-collection.html" data-nav="bouquets">Bouquets</a>
+        <a href="plants-collection.html" data-nav="plants">Plants</a>
         <a href="seasonal-blooms.html" data-nav="seasonal">Seasonal</a>
         <a href="custom-bouquet.html" data-nav="custom">Mix & Match</a>
         <a href="about.html" data-nav="about">About</a>
@@ -38,35 +40,22 @@
   </header>
 
   <main>
-    <section class="page-hero" style="--hero-img:url('https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=1800&h=900&fit=crop');">
+    <section class="page-hero" style="--hero-img:url('https://images.unsplash.com/photo-1759287301416-3010d2dc504d?w=1800&h=900&fit=crop');">
       <div class="container">
-        <p class="breadcrumb"><a href="index.html">Home</a> / All Flowers</p>
-        <span class="kicker">All flowers</span>
-        <h1>All Flower Collections</h1>
-        <p>Search, filter, and sort every flower arrangement available on Florabella.</p>
+        <p class="breadcrumb"><a href="index.html">Home</a> / Desert Plant Collection</p>
+        <span class="kicker">Desert Plant Collection</span>
+        <h1>Desert Plant Collection</h1>
+        <p>Succulents and cactus arrangements for modern interiors.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <div><h2>Find Your Flower</h2></div>
-          <span id="allFlowersCount" class="count-pill">0 flowers</span>
+          <h2>Shop Desert Plant Collection</h2>
+          <a href="custom-bouquet.html" class="btn btn-ghost btn-sm">Build Custom Mix</a>
         </div>
-        <div class="category-links" data-category-links></div>
-
-        <div class="filter-bar">
-          <input id="flowerSearch" type="search" placeholder="Search by flower name or style">
-          <select id="flowerCategory"><option value="all">All Categories</option></select>
-          <select id="flowerSort">
-            <option value="featured">Featured</option>
-            <option value="name">Name A-Z</option>
-            <option value="price-asc">Price Low to High</option>
-            <option value="price-desc">Price High to Low</option>
-          </select>
-        </div>
-
-        <div id="allFlowersGrid" class="product-grid"></div>
+        <div class="product-grid" data-product-grid data-category="desert-plants"></div>
       </div>
     </section>
   </main>
@@ -74,7 +63,7 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand"><h3>Florabella Flowers</h3><p>Premium flower-only collections with custom bouquet options.</p></div>
-      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="peony-collection.html">Peonies</a><a href="seasonal-blooms.html">Seasonal</a></div>
+      <div class="footer-col"><h4>Shop</h4><a href="all-flowers.html">All Flowers</a><a href="rose-collections.html">Roses</a><a href="bouquet-collection.html">Bouquets</a><a href="desert-plants.html">Desert Plants</a><a href="filler-flowers.html">Filler Flowers</a><a href="seasonal-blooms.html">Seasonal</a></div>
       <div class="footer-col"><h4>Order</h4><a href="custom-bouquet.html">Build Custom Bouquet</a><a href="cart.html">Cart</a><a href="checkout.html">Checkout</a></div>
       <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="about.html#contact">Contact</a><a href="catalog-manager.html">Catalog Manager</a></div>
     </div>

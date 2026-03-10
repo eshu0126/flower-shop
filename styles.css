@@ -344,6 +344,26 @@ main {
   padding: 1rem;
 }
 
+.size-row {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.32rem;
+}
+
+.size-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.size-select {
+  padding: 0.58rem 0.7rem;
+  font-size: 0.83rem;
+}
+
 .price-row {
   margin-top: 0.95rem;
   display: flex;
@@ -733,6 +753,32 @@ textarea {
   font-weight: 700;
 }
 
+.category-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0 0 1.1rem;
+}
+
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #d8cdbf;
+  background: #fff;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.category-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* --- Newsletter Upgrades --- */
 .newsletter-grid {
   display: grid;
@@ -964,6 +1010,30 @@ textarea {
   max-width: 650px;
 }
 
+.hero-brand-block {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.hero-brand-logo {
+  width: min(360px, 88vw);
+  max-width: 100%;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+
+.hero-brand-line {
+  margin: 0;
+  font-size: 0.87rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #f8e5d2;
+  font-weight: 700;
+}
+
 .auth-home-grid {
   align-items: flex-start;
 }
@@ -972,9 +1042,63 @@ textarea {
   min-height: 100%;
 }
 
+.whatsapp-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9988;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  padding: 0.6rem 0.86rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: #1faa52;
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 24px rgba(16, 73, 37, 0.35);
+}
+
+.whatsapp-float:hover {
+  background: #159946;
+}
+
+.whatsapp-float-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+}
+
+.whatsapp-float-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 @media (max-width: 980px) {
   .hero-carousel,
   .hero-overlay {
     min-height: 520px;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero-brand-logo {
+    width: min(300px, 90vw);
+  }
+
+  .hero-brand-line {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .whatsapp-float {
+    padding: 0.62rem;
+  }
+
+  .whatsapp-float-text {
+    display: none;
   }
 }

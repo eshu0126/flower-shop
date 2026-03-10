@@ -3,13 +3,20 @@
   const CART_KEY = 'florabella_cart_v1';
   const USER_KEY = 'florabella_user_v1';
   const USERS_KEY = 'florabella_users_v1';
-  const CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v2';
-  const LEGACY_CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v1';
+  const CATALOG_OVERRIDE_KEY = 'florabella_catalog_override_v3';
+  const LEGACY_CATALOG_OVERRIDE_KEYS = [
+    'florabella_catalog_override_v2',
+    'florabella_catalog_override_v1'
+  ];
   const SUBSCRIBERS_KEY = 'florabella_subscribers_v1';
   const AUTH_NOTICE_KEY = 'florabella_auth_notice_v1';
   const CONFIG = window.FLORABELLA_CONFIG || {};
   const DELIVERY_FEE = Number(CONFIG.deliveryFee || 14);
   const DEFAULT_FLOWER_IMAGE = 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop';
+  const LUXURY_MULTIPLIER = Number(CONFIG.luxuryMultiplier || 1.35);
+  const CATEGORY_PAGE_MAP = window.FLORABELLA_CATEGORY_PAGES || {};
+  const WHATSAPP_NUMBER = String(CONFIG.whatsappNumber || '').replace(/\D/g, '');
+  const WHATSAPP_DEFAULT_TEXT = String(CONFIG.whatsappDefaultText || 'Hi Florabella, I would like help with a custom flower order.');
 
   const toCurrency = (value) => new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -61,6 +68,28 @@
     const fallback = categoryPool[start % categoryPool.length] || fallbackPool[0] || DEFAULT_FLOWER_IMAGE;
     categoryCursor[category] = start + 1;
     return fallback;
+  }
+
+  function roundPrice(value) {
+    return Number(Number(value || 0).toFixed(2));
+  }
+
+  function buildWhatsAppLink(message) {
+    const text = encodeURIComponent(String(message || WHATSAPP_DEFAULT_TEXT));
+    if (WHATSAPP_NUMBER) return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    return `https://wa.me/?text=${text}`;
+  }
+
+  function getSizePrice(basePrice, size) {
+    const base = Number(basePrice || 0);
+    if (size === 'luxury') return roundPrice(base * LUXURY_MULTIPLIER);
+    return roundPrice(base);
+  }
+
+  function getSizeLabel(size) {
+    if (size === 'luxury') return 'Luxury';
+    if (size === 'deluxe') return 'Deluxe';
+    return 'Standard';
   }
 
   function readJSON(key, fallback) {
@@ -176,7 +205,7 @@
   }
 
   function getCatalog() {
-    localStorage.removeItem(LEGACY_CATALOG_OVERRIDE_KEY);
+    LEGACY_CATALOG_OVERRIDE_KEYS.forEach((legacyKey) => localStorage.removeItem(legacyKey));
 
     const override = readJSON(CATALOG_OVERRIDE_KEY, null);
     if (Array.isArray(override) && override.length > 0) return sanitizeCatalog(override, true);
@@ -288,19 +317,63 @@
     renderCheckoutSummary();
   }
   function createProductCard(product) {
+    const basePrice = roundPrice(product.price);
+    const luxuryPrice = getSizePrice(basePrice, 'luxury');
+
     return `
-      <article class="product-card reveal">
+      <article class="product-card reveal" data-product-card data-base-price="${escapeHtml(basePrice)}">
         <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
         <div class="product-body">
           <h3>${escapeHtml(product.name)}</h3>
           <p>${escapeHtml(product.description)}</p>
+          <div class="size-row">
+            <label class="size-label">Size</label>
+            <select class="size-select" data-size-select>
+              <option value="standard">Standard - ${toCurrency(basePrice)}</option>
+              <option value="luxury">Luxury - ${toCurrency(luxuryPrice)}</option>
+              <option value="deluxe">Deluxe - Contact us for pricing</option>
+            </select>
+          </div>
           <div class="price-row">
-            <span class="price">${toCurrency(product.price)}</span>
-            <button class="btn btn-primary btn-sm" type="button" data-add-to-cart data-id="${escapeHtml(product.id)}" data-name="${escapeHtml(product.name)}" data-price="${escapeHtml(product.price)}" data-image="${escapeHtml(product.image)}">Add</button>
+            <span class="price" data-size-price>${toCurrency(basePrice)}</span>
+            <button class="btn btn-primary btn-sm" type="button" data-add-to-cart data-id="${escapeHtml(product.id)}" data-name="${escapeHtml(product.name)}" data-base-price="${escapeHtml(basePrice)}" data-image="${escapeHtml(product.image)}">Add</button>
           </div>
         </div>
       </article>
     `;
+  }
+
+  function updateProductCardState(card) {
+    if (!card) return;
+
+    const sizeSelect = card.querySelector('[data-size-select]');
+    const priceNode = card.querySelector('[data-size-price]');
+    const addButton = card.querySelector('[data-add-to-cart]');
+    const basePrice = Number(card.getAttribute('data-base-price') || 0);
+    if (!sizeSelect || !priceNode || !addButton) return;
+
+    const size = String(sizeSelect.value || 'standard');
+    if (size === 'deluxe') {
+      priceNode.textContent = 'Contact us for pricing';
+      addButton.textContent = 'Contact Us';
+      addButton.classList.remove('btn-primary');
+      addButton.classList.add('btn-ghost');
+      addButton.dataset.mode = 'contact';
+      addButton.dataset.price = '';
+      return;
+    }
+
+    const price = getSizePrice(basePrice, size);
+    priceNode.textContent = toCurrency(price);
+    addButton.textContent = 'Add';
+    addButton.classList.remove('btn-ghost');
+    addButton.classList.add('btn-primary');
+    addButton.dataset.mode = 'add';
+    addButton.dataset.price = String(price);
+  }
+
+  function updateRenderedProductCardStates(scope = document) {
+    scope.querySelectorAll('[data-product-card]').forEach((card) => updateProductCardState(card));
   }
 
   function renderCatalogSections() {
@@ -319,6 +392,7 @@
         return;
       }
       grid.innerHTML = products.map(createProductCard).join('');
+      updateRenderedProductCardStates(grid);
     });
 
     const featuredGrid = document.getElementById('featuredFlowersGrid');
@@ -327,6 +401,7 @@
       let featured = catalog.filter((item) => featuredIds.includes(item.id));
       if (!featured.length) featured = [...catalog].slice(0, 6);
       featuredGrid.innerHTML = featured.map(createProductCard).join('');
+      updateRenderedProductCardStates(featuredGrid);
     }
   }
 
@@ -381,6 +456,7 @@
       }
 
       grid.innerHTML = list.length ? list.map(createProductCard).join('') : '<p class="empty-note">No flowers match your filters. Try another search.</p>';
+      updateRenderedProductCardStates(grid);
       if (countNode) countNode.textContent = `${list.length} flowers`;
       revealOnScroll();
     }
@@ -395,19 +471,84 @@
   }
 
   function bindAddToCartDelegation() {
+    document.addEventListener('change', (event) => {
+      const sizeSelect = event.target.closest('[data-size-select]');
+      if (!sizeSelect) return;
+      const card = sizeSelect.closest('[data-product-card]');
+      updateProductCardState(card);
+    });
+
     document.addEventListener('click', (event) => {
       const button = event.target.closest('[data-add-to-cart]');
       if (!button) return;
-      const product = {
-        id: button.dataset.id,
-        name: button.dataset.name,
-        price: Number(button.dataset.price || 0),
-        image: button.dataset.image || '',
-        details: button.dataset.details || ''
-      };
-      if (!product.id || !product.name || !product.price) return;
-      addToCart(product);
+
+      const card = button.closest('[data-product-card]');
+      const sizeSelect = card?.querySelector('[data-size-select]');
+      const size = String(sizeSelect?.value || 'standard').toLowerCase();
+
+      const baseId = String(button.dataset.id || '').trim();
+      const baseName = String(button.dataset.name || '').trim();
+      const baseImage = String(button.dataset.image || '').trim();
+      const basePrice = Number(button.dataset.basePrice || button.dataset.price || 0);
+
+      if (!baseId || !baseName || !basePrice) return;
+
+      if (size === 'deluxe' || button.dataset.mode === 'contact') {
+        const contactMessage = `Hi Florabella, I would like a Deluxe quote for ${baseName}.`;
+        window.open(buildWhatsAppLink(contactMessage), '_blank', 'noopener,noreferrer');
+        return;
+      }
+
+      const sizeLabel = getSizeLabel(size);
+      const sizePrice = getSizePrice(basePrice, size);
+      addToCart({
+        id: `${baseId}-${size}`,
+        name: baseName,
+        price: sizePrice,
+        image: baseImage,
+        details: `Size: ${sizeLabel}`
+      });
     });
+  }
+
+  function renderCategoryQuickLinks() {
+    const linksWrap = document.querySelector('[data-category-links]');
+    if (!linksWrap) return;
+
+    const categories = getCategories();
+    const items = Object.entries(CATEGORY_PAGE_MAP)
+      .filter(([key, page]) => key !== 'all' && categories[key] && page)
+      .sort((a, b) => {
+        const aLabel = categories[a[0]]?.label || a[0];
+        const bLabel = categories[b[0]]?.label || b[0];
+        return aLabel.localeCompare(bLabel);
+      });
+
+    linksWrap.innerHTML = items.map(([key, page]) => {
+      const label = categories[key]?.label || key;
+      return `<a class="category-chip" href="${escapeHtml(page)}">${escapeHtml(label)}</a>`;
+    }).join('');
+  }
+
+  function mountWhatsAppFloatingButton() {
+    if (document.getElementById('whatsappFloatingLink')) return;
+
+    const button = document.createElement('a');
+    button.id = 'whatsappFloatingLink';
+    button.className = 'whatsapp-float';
+    button.href = buildWhatsAppLink(WHATSAPP_DEFAULT_TEXT);
+    button.target = '_blank';
+    button.rel = 'noopener noreferrer';
+    button.setAttribute('aria-label', 'Chat with Florabella on WhatsApp');
+    button.innerHTML = `
+      <span class="whatsapp-float-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" role="img" focusable="false">
+          <path fill="currentColor" d="M16.03 3.2c-7 0-12.69 5.68-12.69 12.68 0 2.23.58 4.41 1.68 6.34L3 29l6.97-2.25a12.66 12.66 0 0 0 6.06 1.55h.01c7 0 12.69-5.69 12.69-12.69 0-3.39-1.32-6.58-3.71-8.98a12.62 12.62 0 0 0-8.99-3.72zm0 22.98h-.01a10.37 10.37 0 0 1-5.29-1.44l-.38-.22-4.14 1.34 1.35-4.03-.25-.41a10.35 10.35 0 0 1-1.6-5.54c0-5.74 4.67-10.41 10.42-10.41 2.78 0 5.39 1.08 7.35 3.05a10.35 10.35 0 0 1 3.04 7.36c0 5.74-4.67 10.4-10.41 10.4zm5.71-7.81c-.31-.16-1.83-.9-2.11-1-.28-.1-.48-.15-.69.15-.2.31-.79 1-.96 1.2-.18.2-.35.23-.66.08-.31-.16-1.29-.47-2.46-1.49-.9-.8-1.52-1.79-1.69-2.09-.17-.31-.02-.48.13-.63.14-.14.31-.36.47-.54.16-.18.21-.31.31-.51.1-.2.05-.39-.03-.54-.08-.15-.69-1.67-.94-2.28-.25-.6-.5-.52-.69-.52h-.58c-.2 0-.51.08-.77.38-.26.31-1 1-1 2.43s1.03 2.81 1.17 3.01c.15.2 2.02 3.08 4.9 4.32.69.3 1.23.47 1.65.6.69.22 1.32.19 1.81.12.55-.08 1.82-.74 2.08-1.46.26-.72.26-1.33.18-1.46-.08-.13-.28-.2-.59-.36z"/>
+        </svg>
+      </span>
+      <span class="whatsapp-float-text">WhatsApp Us</span>
+    `;
+    document.body.appendChild(button);
   }
 
   function renderCartPage() {
@@ -1260,6 +1401,7 @@
     showQueuedAuthNotice();
     renderCatalogSections();
     renderAllFlowersExplorer();
+    renderCategoryQuickLinks();
     bindCustomBouquetBuilder();
     bindRegistrationForm();
 
@@ -1275,6 +1417,7 @@
     renderCheckoutSummary();
     revealOnScroll();
     showOrderId();
+    mountWhatsAppFloatingButton();
   }
 
   document.addEventListener('DOMContentLoaded', init);
