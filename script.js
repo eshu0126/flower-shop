@@ -21,6 +21,37 @@
     .replace(/\"/g, '&quot;')
     .replace(/'/g, '&#39;');
 
+  // Enforce category-specific imagery so products always match their section.
+  const CATEGORY_IMAGE_POOL = {
+    roses: [
+      'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=900&h=1100&fit=crop'
+    ],
+    peonies: [
+      'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1478217655589-37eba75ce489?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1494336956603-39a3f0a94cbb?w=900&h=1100&fit=crop'
+    ],
+    tulips: [
+      'https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=900&h=1100&fit=crop'
+    ],
+    lilies: [
+      'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1525310379110-588677eeed96?w=900&h=1100&fit=crop'
+    ],
+    orchids: [
+      'https://images.unsplash.com/photo-1518882104783-f00ef498230c?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=900&h=1100&fit=crop'
+    ],
+    seasonal: [
+      'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=900&h=1100&fit=crop',
+      'https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=900&h=1100&fit=crop'
+    ]
+  };
+
   function readJSON(key, fallback) {
     try {
       const raw = localStorage.getItem(key);
@@ -98,13 +129,19 @@
   }
 
   function normalizeProduct(product, index = 0) {
+    const category = String(product.category || 'seasonal').toLowerCase();
+    const categoryPool = CATEGORY_IMAGE_POOL[category];
+    const categoryImage = Array.isArray(categoryPool) && categoryPool.length
+      ? categoryPool[index % categoryPool.length]
+      : null;
+
     return {
       id: product.id || `flower-${index}`,
-      category: String(product.category || 'seasonal').toLowerCase(),
+      category,
       name: product.name || 'Untitled Flower',
       description: product.description || 'Seasonal florist arrangement.',
       price: Number(product.price || 0),
-      image: product.image || 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop'
+      image: categoryImage || product.image || 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop'
     };
   }
 

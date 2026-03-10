@@ -372,6 +372,46 @@ window.FLORABELLA_CATALOG = [
     description: 'Color-forward seasonal bouquet for casual occasions.',
     price: 92,
     image: 'https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=900&h=1100&fit=crop'
+  },
+  {
+    id: 'seasonal-wildflower-meadow',
+    category: 'seasonal',
+    name: 'Wildflower Meadow',
+    description: 'Natural meadow-style bouquet with airy movement.',
+    price: 102,
+    image: 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop'
+  },
+  {
+    id: 'seasonal-country-garden',
+    category: 'seasonal',
+    name: 'Country Garden Blend',
+    description: 'Hand-tied mixed blooms inspired by countryside gardens.',
+    price: 109,
+    image: 'https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=900&h=1100&fit=crop'
+  },
+  {
+    id: 'seasonal-dawn-petals',
+    category: 'seasonal',
+    name: 'Dawn Petal Bouquet',
+    description: 'Soft morning tones with layered seasonal petals.',
+    price: 114,
+    image: 'https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=900&h=1100&fit=crop'
+  },
+  {
+    id: 'seasonal-blooming-field',
+    category: 'seasonal',
+    name: 'Blooming Field Mix',
+    description: 'Fresh-cut multicolor stems with premium wrap.',
+    price: 118,
+    image: 'https://images.unsplash.com/photo-1478217655589-37eba75ce489?w=900&h=1100&fit=crop'
+  },
+  {
+    id: 'seasonal-weekly-signature',
+    category: 'seasonal',
+    name: 'Weekly Signature Flowers',
+    description: 'Designer-selected weekly flower assortment.',
+    price: 120,
+    image: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=900&h=1100&fit=crop'
   }
 ];
 
