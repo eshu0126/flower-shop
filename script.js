@@ -13,6 +13,7 @@
   const CONFIG = window.FLORABELLA_CONFIG || {};
   const DELIVERY_FEE = Number(CONFIG.deliveryFee || 14);
   const DEFAULT_FLOWER_IMAGE = 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=900&h=1100&fit=crop';
+  const LOCAL_FALLBACK_FLOWER_IMAGE = 'assets/fallback-flower.svg';
   const LUXURY_MULTIPLIER = Number(CONFIG.luxuryMultiplier || 1.35);
   const CATEGORY_PAGE_MAP = window.FLORABELLA_CATEGORY_PAGES || {};
   const WHATSAPP_NUMBER = String(CONFIG.whatsappNumber || '').replace(/\D/g, '');
@@ -90,6 +91,27 @@
     if (size === 'luxury') return 'Luxury';
     if (size === 'deluxe') return 'Deluxe';
     return 'Standard';
+  }
+
+  function getCategoryRepresentativeImage(category, catalog = null) {
+    const source = Array.isArray(catalog) ? catalog : getCatalog();
+    const match = source.find((item) => item.category === category && item.image);
+    return String(match?.image || '').trim() || DEFAULT_FLOWER_IMAGE;
+  }
+
+  function toHeroImageUrl(imageUrl) {
+    const fallback = String(imageUrl || '').trim() || DEFAULT_FLOWER_IMAGE;
+
+    try {
+      const url = new URL(fallback, window.location.href);
+      url.searchParams.set('w', '1800');
+      url.searchParams.set('h', '900');
+      url.searchParams.set('fit', 'crop');
+      url.searchParams.set('q', '80');
+      return url.toString();
+    } catch (_) {
+      return fallback;
+    }
   }
 
   function readJSON(key, fallback) {
@@ -321,8 +343,8 @@
     const luxuryPrice = getSizePrice(basePrice, 'luxury');
 
     return `
-      <article class="product-card reveal" data-product-card data-base-price="${escapeHtml(basePrice)}">
-        <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+      <article class="product-card reveal" data-product-card data-category="${escapeHtml(product.category)}" data-base-price="${escapeHtml(basePrice)}">
+        <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">
         <div class="product-body">
           <h3>${escapeHtml(product.name)}</h3>
           <p>${escapeHtml(product.description)}</p>
@@ -374,6 +396,41 @@
 
   function updateRenderedProductCardStates(scope = document) {
     scope.querySelectorAll('[data-product-card]').forEach((card) => updateProductCardState(card));
+    bindProductImageFallbacks(scope);
+  }
+
+  function bindProductImageFallbacks(scope = document) {
+    scope.querySelectorAll('[data-product-card] img').forEach((img) => {
+      if (img.dataset.fallbackBound === 'true') return;
+      img.dataset.fallbackBound = 'true';
+
+      img.addEventListener('error', () => {
+        const card = img.closest('[data-product-card]');
+        const category = String(card?.dataset.category || 'seasonal').toLowerCase();
+        const categoryFallback = getCategoryRepresentativeImage(category);
+        const current = String(img.getAttribute('src') || '').trim();
+
+        if (current && current !== categoryFallback) {
+          img.src = categoryFallback;
+          return;
+        }
+
+        if (current !== LOCAL_FALLBACK_FLOWER_IMAGE) {
+          img.src = LOCAL_FALLBACK_FLOWER_IMAGE;
+        }
+      });
+    });
+  }
+
+  function syncCategoryHeroImage() {
+    const pageHero = document.querySelector('.page-hero');
+    if (!pageHero) return;
+
+    const page = String(document.body.dataset.page || '').toLowerCase();
+    if (!page || !getCategories()[page]) return;
+
+    const heroImage = toHeroImageUrl(getCategoryRepresentativeImage(page));
+    pageHero.style.setProperty('--hero-img', `url("${heroImage}")`);
   }
 
   function renderCatalogSections() {
@@ -1401,6 +1458,7 @@
     showQueuedAuthNotice();
     renderCatalogSections();
     renderAllFlowersExplorer();
+    syncCategoryHeroImage();
     renderCategoryQuickLinks();
     bindCustomBouquetBuilder();
     bindRegistrationForm();

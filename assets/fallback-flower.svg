@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1100" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Florabella Floral Placeholder</title>
+  <desc id="desc">Decorative fallback flower artwork used when a product image cannot load.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbf3ea"/>
+      <stop offset="100%" stop-color="#efe0d0"/>
+    </linearGradient>
+    <linearGradient id="petal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d88b93"/>
+      <stop offset="100%" stop-color="#a45d66"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#bg)"/>
+  <g transform="translate(450 470)">
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(0) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(45) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(90) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(135) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(180) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(225) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(270) translate(0 -120)"/>
+    <ellipse rx="88" ry="192" fill="url(#petal)" transform="rotate(315) translate(0 -120)"/>
+    <circle r="92" fill="#f7e3a7"/>
+  </g>
+  <rect x="436" y="562" width="28" height="268" rx="14" fill="#6f8c55"/>
+  <path d="M450 655c-84 0-146 58-160 124 74-5 132-40 160-98z" fill="#89a76b"/>
+  <path d="M450 715c84 0 146 58 160 124-74-5-132-40-160-98z" fill="#89a76b"/>
+  <text x="450" y="920" text-anchor="middle" fill="#7f5137" font-family="Georgia, serif" font-size="60" letter-spacing="10">FLORABELLA</text>
+  <text x="450" y="974" text-anchor="middle" fill="#7f5137" font-family="Arial, sans-serif" font-size="28" letter-spacing="8">FLOWERS</text>
+</svg>
