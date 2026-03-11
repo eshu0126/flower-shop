@@ -1127,6 +1127,41 @@
     }, 3000);
   }
 
+  function bindHomeAuthTabs() {
+    const switchButtons = [...document.querySelectorAll('[data-auth-switch]')];
+    const panes = [...document.querySelectorAll('[data-auth-pane]')];
+    if (!switchButtons.length || !panes.length) return;
+
+    function setActiveTab(nextTab) {
+      const tab = String(nextTab || 'register').toLowerCase();
+      switchButtons.forEach((button) => {
+        const active = button.dataset.authSwitch === tab;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-selected', String(active));
+      });
+
+      panes.forEach((pane) => {
+        pane.classList.toggle('active', pane.dataset.authPane === tab);
+      });
+    }
+
+    switchButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        setActiveTab(button.dataset.authSwitch);
+      });
+    });
+
+    document.querySelectorAll('[data-open-auth-tab]').forEach((link) => {
+      link.addEventListener('click', () => {
+        setActiveTab(link.dataset.openAuthTab);
+      });
+    });
+
+    const currentHash = String(window.location.hash || '').toLowerCase();
+    if (currentHash === '#logincard') setActiveTab('login');
+    else setActiveTab('register');
+  }
+
   function showQueuedAuthNotice() {
     const queued = sessionStorage.getItem(AUTH_NOTICE_KEY);
     if (!queued) return;
@@ -1455,6 +1490,7 @@
     bindNavToggle();
     bindAddToCartDelegation();
     bindHomeHeroSlider();
+    bindHomeAuthTabs();
     showQueuedAuthNotice();
     renderCatalogSections();
     renderAllFlowersExplorer();

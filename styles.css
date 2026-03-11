@@ -1042,6 +1042,188 @@ textarea {
   min-height: 100%;
 }
 
+.home-single-screen {
+  min-height: calc(100vh - 110px);
+}
+
+.home-landing,
+.home-landing .hero-overlay {
+  min-height: calc(100vh - 110px);
+}
+
+.home-landing-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 460px);
+  gap: 2rem;
+  align-items: stretch;
+  padding: 1.7rem 0;
+}
+
+.home-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.15rem;
+  min-width: 0;
+}
+
+.home-copy .hero-overlay p,
+.home-copy p {
+  max-width: 720px;
+}
+
+.home-highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.home-highlight-card,
+.home-about-card,
+.home-auth-panel {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(20, 16, 13, 0.48);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+}
+
+.home-highlight-card {
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.home-highlight-card strong {
+  display: block;
+  color: #fff;
+  font-size: 0.96rem;
+  margin-bottom: 0.25rem;
+}
+
+.home-highlight-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.home-about-card {
+  border-radius: 22px;
+  padding: 1.15rem 1.2rem 1.25rem;
+}
+
+.home-about-card h2 {
+  margin: 0 0 0.65rem;
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  line-height: 1.15;
+}
+
+.home-about-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.home-about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.home-access {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.home-auth-panel {
+  width: 100%;
+  border-radius: 24px;
+  padding: 1.2rem;
+  color: #fff;
+  max-height: min(78vh, 900px);
+  overflow: auto;
+}
+
+.home-auth-head h2 {
+  margin: 0.1rem 0 0.4rem;
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: clamp(1.55rem, 2.2vw, 2.1rem);
+  line-height: 1.12;
+}
+
+.home-auth-head p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.92rem;
+}
+
+.auth-switch {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.55rem;
+  margin: 1rem 0 1.1rem;
+}
+
+.auth-switch-btn {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+  padding: 0.7rem 0.95rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.auth-switch-btn.active {
+  background: #fff;
+  color: var(--accent);
+  border-color: #fff;
+}
+
+.auth-pane {
+  display: none;
+}
+
+.auth-pane.active {
+  display: block;
+}
+
+.form-card-embedded {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.home-auth-panel label {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.home-auth-panel input,
+.home-auth-panel select,
+.home-auth-panel textarea {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.home-access-note {
+  margin: 1rem 0 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+}
+
+#registerSubscribe,
+#aboutSection {
+  scroll-margin-top: 120px;
+}
+
 .whatsapp-float {
   position: fixed;
   right: 18px;
@@ -1082,6 +1264,26 @@ textarea {
   .hero-overlay {
     min-height: 520px;
   }
+
+  .home-single-screen,
+  .home-landing,
+  .home-landing .hero-overlay {
+    min-height: auto;
+  }
+
+  .home-landing-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 1.2rem 0 2rem;
+  }
+
+  .home-highlight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-auth-panel {
+    max-height: none;
+  }
 }
 
 @media (max-width: 620px) {
@@ -1092,6 +1294,19 @@ textarea {
   .hero-brand-line {
     font-size: 0.75rem;
     letter-spacing: 0.1em;
+  }
+
+  .auth-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .home-about-actions {
+    flex-direction: column;
+  }
+
+  .home-auth-panel {
+    padding: 1rem;
+    border-radius: 18px;
   }
 
   .whatsapp-float {
