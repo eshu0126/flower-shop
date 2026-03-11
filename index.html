@@ -23,7 +23,7 @@
 
       <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
         <a href="#homeLanding" data-nav="home">Home</a>
-        <a href="#registerSubscribe" data-open-auth-tab="register">Subscribe & Register</a>
+        <a href="#registerSubscribe" data-open-auth-tab="register">Membership</a>
         <a href="#aboutSection">About</a>
       </nav>
 
@@ -37,17 +37,25 @@
   <main class="home-single-screen">
     <section class="hero hero-carousel home-landing" id="homeLanding">
       <div class="hero-stage">
-        <div class="hero-slide-item active" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1561543718-aabc836e5297?auto=format&fit=crop&w=1800&h=1100&q=80');"></div>
-        <div class="hero-slide-item" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1494315073943-574dc4c4444f?auto=format&fit=crop&w=1800&h=1100&q=80');"></div>
+        <div class="hero-slide-item active" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1494315073943-574dc4c4444f?auto=format&fit=crop&w=1800&h=1100&q=80');"></div>
+        <div class="hero-slide-item" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1561543718-aabc836e5297?auto=format&fit=crop&w=1800&h=1100&q=80');"></div>
         <div class="hero-slide-item" data-hero-slide style="background-image:url('https://images.unsplash.com/photo-1628619982759-70d82a13495d?auto=format&fit=crop&w=1800&h=1100&q=80');"></div>
       </div>
 
       <div class="hero-overlay">
         <div class="container home-landing-grid">
           <div class="home-copy">
-            <span class="kicker">Boston Floral Membership</span>
-            <h1>Crafted by nature, curated by us</h1>
-            <p class="home-lead">Florabella pairs private-access ordering with custom bouquets, reminder-led gifting, and polished Boston delivery from 449 Washington St.</p>
+            <span class="kicker home-hero-kicker">Private Floral Membership | Boston</span>
+            <h1 class="home-title">
+              <span>Crafted by nature.</span>
+              <span>Curated by us.</span>
+            </h1>
+            <p class="home-lead">Florabella is a private floral studio for thoughtful gifting, custom bouquet requests, and polished Boston delivery from 449 Washington St.</p>
+
+            <div class="hero-actions home-hero-actions">
+              <a class="btn btn-primary" href="all-flowers.html">Browse Collections</a>
+              <a class="btn btn-ghost" href="about.html">Our Story</a>
+            </div>
 
             <div class="home-loop-line" aria-label="Animated Florabella membership features">
               <span class="home-loop-label">Membership includes</span>
@@ -62,39 +70,38 @@
               </div>
             </div>
 
-            <article class="home-signature-panel" id="aboutSection">
-              <div class="home-signature-intro">
-                <span class="kicker">About Florabella</span>
-                <h2>One page, one membership, one floral studio.</h2>
-                <p>Built for gifting that feels personal: register once, save birthdays, and unlock checkout for future bouquet orders.</p>
-              </div>
-              <div class="home-signature-grid">
-                <article class="home-signature-card">
-                  <strong>Private florist access</strong>
-                  <span>Cart and checkout stay locked until the account is active.</span>
-                </article>
-                <article class="home-signature-card">
-                  <strong>Reminder-led gifting</strong>
-                  <span>Track your birthday and partner reminders from one account.</span>
-                </article>
-                <article class="home-signature-card">
-                  <strong>Boston concierge delivery</strong>
-                  <span>Custom bouquet requests and premium local fulfillment.</span>
-                </article>
-              </div>
-              <div class="home-about-actions">
-                <a class="btn btn-primary" href="all-flowers.html">Browse Flowers</a>
-                <a class="btn btn-ghost" href="about.html">About Studio</a>
-              </div>
-            </article>
+            <div class="home-story-strip" id="aboutSection">
+              <strong>Florabella Boston</strong>
+              <p>Register once, save birthdays, and come back whenever you need a bouquet that feels deliberate rather than generic.</p>
+            </div>
+
+            <div class="home-quick-grid">
+              <article class="home-quick-card">
+                <strong>Private florist access</strong>
+                <span>Cart and checkout unlock only after a verified membership is active.</span>
+              </article>
+              <article class="home-quick-card">
+                <strong>Reminder-led gifting</strong>
+                <span>Track your birthday and partner reminders from one place.</span>
+              </article>
+              <article class="home-quick-card">
+                <strong>Boston concierge delivery</strong>
+                <span>Luxury bouquet requests and downtown local fulfillment.</span>
+              </article>
+            </div>
           </div>
 
           <aside class="home-access" id="registerSubscribe">
             <div class="home-auth-panel">
               <div class="home-auth-head">
-                <span class="kicker">Private Access</span>
-                <h2>Access the Florabella studio</h2>
-                <p>Register once to unlock cart, checkout, and birthday reminders. Returning members can log in below.</p>
+                <span class="kicker">Membership Access</span>
+                <h2>Register once. Order beautifully.</h2>
+                <p>Unlock cart and checkout, save birthdays, and keep reminder details ready for future gifting.</p>
+              </div>
+
+              <div class="home-auth-trust">
+                <span>Cart unlock after signup</span>
+                <span>Partner reminders optional</span>
               </div>
 
               <p id="homeAuthNotice" class="form-message" hidden></p>
@@ -106,10 +113,9 @@
 
               <div class="auth-pane active" data-auth-pane="register">
                 <form id="registerForm" class="form-card form-card-embedded">
-                  <span class="kicker">New Member</span>
-                  <h3 style="font-family: var(--font-head); margin-top:0;">Subscribe and Register</h3>
+                  <h3 class="home-pane-title">Create your membership</h3>
 
-                  <div class="form-row" style="margin-top:0.8rem;">
+                  <div class="form-row home-form-row">
                     <div>
                       <label for="firstName">First Name</label>
                       <input id="firstName" name="first_name" type="text" required>
@@ -120,52 +126,55 @@
                     </div>
                   </div>
 
-                  <div style="margin-top:0.8rem;">
+                  <div class="home-form-field">
                     <label for="regEmail">Email</label>
                     <input id="regEmail" name="email" type="email" required>
                   </div>
 
-                  <div style="margin-top:0.8rem;">
+                  <div class="home-form-field">
                     <label for="regPassword">Password</label>
                     <input id="regPassword" name="password" type="password" required>
                   </div>
 
-                  <div style="margin-top:0.8rem;">
+                  <div class="home-form-field">
                     <label for="regDob">Your Date of Birth</label>
                     <input id="regDob" name="dob" type="date" required>
                   </div>
 
-                  <div class="form-row" style="margin-top:0.8rem;">
-                    <div>
-                      <label for="spouseName">Husband/Wife Name</label>
-                      <input id="spouseName" name="spouse_name" type="text" placeholder="Optional">
+                  <details class="home-optional-details">
+                    <summary>Add husband/wife reminder details</summary>
+                    <div class="form-row home-form-row">
+                      <div>
+                        <label for="spouseName">Husband/Wife Name</label>
+                        <input id="spouseName" name="spouse_name" type="text" placeholder="Optional">
+                      </div>
+                      <div>
+                        <label for="spousePhone">Husband/Wife Number</label>
+                        <input id="spousePhone" name="spouse_phone" type="tel" placeholder="Optional">
+                      </div>
                     </div>
-                    <div>
-                      <label for="spousePhone">Husband/Wife Number</label>
-                      <input id="spousePhone" name="spouse_phone" type="tel" placeholder="Optional">
-                    </div>
-                  </div>
 
-                  <div class="form-row" style="margin-top:0.8rem;">
-                    <div>
-                      <label for="spouseEmail">Husband/Wife Email</label>
-                      <input id="spouseEmail" name="spouse_email" type="email" placeholder="Optional">
+                    <div class="form-row home-form-row">
+                      <div>
+                        <label for="spouseEmail">Husband/Wife Email</label>
+                        <input id="spouseEmail" name="spouse_email" type="email" placeholder="Optional">
+                      </div>
+                      <div>
+                        <label for="spouseDob">Husband/Wife DOB</label>
+                        <input id="spouseDob" name="spouse_dob" type="date">
+                      </div>
                     </div>
-                    <div>
-                      <label for="spouseDob">Husband/Wife DOB</label>
-                      <input id="spouseDob" name="spouse_dob" type="date">
-                    </div>
-                  </div>
+                  </details>
 
-                  <div style="margin-top:0.9rem;">
-                    <label class="checkbox-inline" style="color:var(--ink);">
+                  <div class="home-form-field home-form-check">
+                    <label class="checkbox-inline home-check">
                       <input type="checkbox" name="register_subscribe" checked>
                       I subscribe to birthday and seasonal reminder emails
                     </label>
                   </div>
 
-                  <div style="margin-top:1rem;">
-                    <button type="submit" class="btn btn-primary btn-block">Subscribe & Register</button>
+                  <div class="home-form-field">
+                    <button type="submit" class="btn btn-primary btn-block">Join Florabella</button>
                   </div>
                   <p id="registerMessage" class="form-message"></p>
                 </form>
@@ -173,21 +182,20 @@
 
               <div class="auth-pane" data-auth-pane="login">
                 <form id="loginCard" class="form-card form-card-embedded" data-login-form>
-                  <span class="kicker">Existing Member</span>
-                  <h3 style="font-family: var(--font-head); margin-top:0;">Login</h3>
-                  <p style="margin-bottom:0.7rem; color:var(--muted);">Already registered and subscribed? Login to continue shopping.</p>
+                  <h3 class="home-pane-title">Member login</h3>
+                  <p class="home-pane-copy">Already registered? Sign in to continue shopping and manage future reminders.</p>
 
-                  <div style="margin-top:0.6rem;">
+                  <div class="home-form-field">
                     <label for="loginEmail">Email</label>
                     <input id="loginEmail" name="email" type="email" required>
                   </div>
 
-                  <div style="margin-top:0.8rem;">
+                  <div class="home-form-field">
                     <label for="loginPassword">Password</label>
                     <input id="loginPassword" name="password" type="password" required>
                   </div>
 
-                  <div style="margin-top:1rem;">
+                  <div class="home-form-field">
                     <button type="submit" class="btn btn-ghost btn-block">Login</button>
                   </div>
                   <p id="homeLoginMessage" class="form-message" data-login-message></p>
