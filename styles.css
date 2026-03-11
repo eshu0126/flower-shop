@@ -1020,7 +1020,8 @@ textarea {
 
 .hero-overlay h1 {
   color: #fff;
-  max-width: 860px;
+  max-width: none;
+  white-space: nowrap;
 }
 
 .hero-overlay p {
@@ -1094,6 +1095,48 @@ textarea {
 .home-lead {
   font-size: 0.98rem;
   line-height: 1.55;
+}
+
+.hero-word-loop {
+  position: relative;
+  height: 1.45rem;
+  overflow: hidden;
+  margin-top: 0.1rem;
+}
+
+.hero-word-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: heroWordDrop 10s infinite;
+}
+
+.hero-word-track span {
+  display: block;
+  min-height: 1.45rem;
+  color: #f4e3d1;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@keyframes heroWordDrop {
+  0%, 16% {
+    transform: translateY(0);
+  }
+  20%, 36% {
+    transform: translateY(-1.45rem);
+  }
+  40%, 56% {
+    transform: translateY(-2.9rem);
+  }
+  60%, 76% {
+    transform: translateY(-4.35rem);
+  }
+  80%, 100% {
+    transform: translateY(-5.8rem);
+  }
 }
 
 .home-points {
@@ -1314,6 +1357,10 @@ body[data-page='home'] {
 
   .home-auth-panel {
     max-height: none;
+  }
+
+  .hero-overlay h1 {
+    white-space: normal;
   }
 }
 
