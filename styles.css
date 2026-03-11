@@ -76,8 +76,8 @@ img {
 .brand {
   position: relative;
   display: block;
-  width: clamp(190px, 24vw, 320px);
-  height: clamp(70px, 7vw, 108px);
+  width: clamp(210px, 25vw, 350px);
+  height: clamp(82px, 7.4vw, 116px);
   flex: 0 0 auto;
   background: url('assets/florabella-wordmark.svg') left center / contain no-repeat;
   line-height: 1;
@@ -725,8 +725,8 @@ textarea {
 
 @media (max-width: 620px) {
   .brand {
-    width: min(220px, 52vw);
-    height: 62px;
+    width: min(240px, 58vw);
+    height: 70px;
   }
 
   .section {
@@ -1028,7 +1028,7 @@ textarea {
 }
 
 .hero-brand-logo {
-  width: min(360px, 88vw);
+  width: min(430px, 92vw);
   max-width: 100%;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.96);
@@ -1298,7 +1298,7 @@ textarea {
 
 @media (max-width: 620px) {
   .hero-brand-logo {
-    width: min(300px, 90vw);
+    width: min(340px, 92vw);
   }
 
   .hero-brand-line {

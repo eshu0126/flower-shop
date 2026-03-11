@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
-  <title id="title">Florabella Wordmark</title>
-  <desc id="desc">Florabella wordmark with butterfly icon.</desc>
-  <g fill="none" stroke="#f19195" stroke-linecap="round">
-    <path d="M868 30c78 8 126 52 124 112-2 68-60 114-150 114" stroke-width="14"/>
-    <path d="M868 30c-56 22-94 72-94 124 0 52 40 90 102 100" stroke-width="14"/>
-    <path d="M930 96c66-12 128 10 166 54 38 44 40 98 10 142" stroke-width="12"/>
-    <path d="M922 136c-34 20-56 56-56 94s22 72 56 92" stroke-width="12"/>
-    <path d="M814 160c-34 8-58 28-76 60" stroke-width="12"/>
-    <path d="M810 196c-22 4-42 16-58 34" stroke-width="10"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520" role="img" aria-labelledby="title desc">
+  <title id="title">Florabella Butterfly Logo</title>
+  <desc id="desc">Florabella wordmark with large butterfly mark positioned above the right side of the name.</desc>
+  <g fill="none" stroke="#f19195" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1008 34c94 10 154 66 152 142-2 88-72 146-188 146" stroke-width="16"/>
+    <path d="M1008 34c-68 28-114 92-114 164 0 70 50 120 126 134" stroke-width="16"/>
+    <path d="M1088 130c88-18 170 14 220 76 50 60 54 136 12 198" stroke-width="15"/>
+    <path d="M1078 190c-44 24-72 70-72 118 0 48 28 92 72 118" stroke-width="15"/>
+    <path d="M928 214c-46 12-80 38-102 88" stroke-width="15"/>
+    <path d="M920 270c-28 6-54 20-78 48" stroke-width="13"/>
   </g>
-  <text x="42" y="292" fill="#123861" font-family="'Palatino Linotype', 'Book Antiqua', Georgia, serif" font-size="238" font-weight="700" letter-spacing="-3">
+  <text x="56" y="398" fill="#123861" font-family="'Palatino Linotype', 'Book Antiqua', Georgia, serif" font-size="250" font-style="italic" font-weight="700" letter-spacing="-5">
     Florabella
   </text>
 </svg>
