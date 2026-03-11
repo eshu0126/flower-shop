@@ -63,31 +63,35 @@ img {
   background: rgba(255, 253, 249, 0.97);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(44, 35, 26, 0.04);
 }
 
 .header-main {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(170px, 220px) 1fr auto;
   align-items: center;
-  gap: 1rem;
-  padding: 0.28rem 0;
+  gap: 1.5rem;
+  min-height: 82px;
+  padding: 0.65rem 0;
 }
 
 .brand {
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: clamp(150px, 15vw, 220px);
-  height: clamp(44px, 3.8vw, 60px);
+  width: min(100%, 210px);
+  height: 62px;
   flex: 0 0 auto;
   line-height: 1;
+  justify-self: start;
+  overflow: hidden;
 }
 
 .brand-logo-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: left center;
+  object-fit: cover;
+  object-position: center 54%;
   display: block;
 }
 
@@ -128,7 +132,7 @@ img {
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -153,7 +157,7 @@ img {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.7rem;
 }
 
 .btn {
@@ -177,7 +181,8 @@ img {
 }
 
 .btn-sm {
-  padding: 0.5rem 0.95rem;
+  min-height: 42px;
+  padding: 0.5rem 1rem;
   font-size: 0.72rem;
 }
 
@@ -205,6 +210,9 @@ img {
 }
 
 .cart-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 0.5rem 0.9rem;
@@ -681,7 +689,9 @@ textarea {
 @media (max-width: 980px) {
   .header-main {
     grid-template-columns: 1fr auto;
-    gap: 0.8rem;
+    gap: 0.9rem;
+    min-height: 74px;
+    padding: 0.55rem 0;
   }
 
   .nav-toggle {
@@ -732,11 +742,6 @@ textarea {
 }
 
 @media (max-width: 620px) {
-  .brand {
-    width: min(240px, 58vw);
-    height: 70px;
-  }
-
   .section {
     padding: 3.1rem 0;
   }
@@ -1544,8 +1549,8 @@ body[data-page='home'] {
 
 @media (max-width: 620px) {
   .brand {
-    width: min(166px, 44vw);
-    height: 46px;
+    width: min(158px, 42vw);
+    height: 50px;
   }
 
   .auth-switch {
