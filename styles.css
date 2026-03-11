@@ -69,16 +69,16 @@ img {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1.4rem;
-  padding: 1rem 0;
+  gap: 1rem;
+  padding: 0.45rem 0;
 }
 
 .brand {
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: clamp(210px, 25vw, 350px);
-  height: clamp(82px, 7.4vw, 116px);
+  width: clamp(180px, 19vw, 280px);
+  height: clamp(56px, 5vw, 82px);
   flex: 0 0 auto;
   line-height: 1;
 }
@@ -1303,6 +1303,11 @@ textarea {
 }
 
 @media (max-width: 620px) {
+  .brand {
+    width: min(190px, 48vw);
+    height: 56px;
+  }
+
   .hero-brand-logo {
     width: min(340px, 92vw);
   }
