@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Florabella Wordmark</title>
+  <desc id="desc">Florabella wordmark with butterfly icon.</desc>
+  <g fill="none" stroke="#f19195" stroke-linecap="round">
+    <path d="M868 30c78 8 126 52 124 112-2 68-60 114-150 114" stroke-width="14"/>
+    <path d="M868 30c-56 22-94 72-94 124 0 52 40 90 102 100" stroke-width="14"/>
+    <path d="M930 96c66-12 128 10 166 54 38 44 40 98 10 142" stroke-width="12"/>
+    <path d="M922 136c-34 20-56 56-56 94s22 72 56 92" stroke-width="12"/>
+    <path d="M814 160c-34 8-58 28-76 60" stroke-width="12"/>
+    <path d="M810 196c-22 4-42 16-58 34" stroke-width="10"/>
+  </g>
+  <text x="42" y="292" fill="#123861" font-family="'Palatino Linotype', 'Book Antiqua', Georgia, serif" font-size="238" font-weight="700" letter-spacing="-3">
+    Florabella
+  </text>
+</svg>
